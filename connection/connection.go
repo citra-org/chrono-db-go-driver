@@ -79,10 +79,12 @@ func (c *Connection) Execute(command string) (string, error) {
 		return "", err
 	}
 
-	response, err := bufio.NewReader(c.conn).ReadString('\n')
+	buffer := make([]byte, 1024)
+	n, err := c.conn.Read(buffer)
 	if err != nil {
 		return "", err
 	}
 
-	return strings.TrimSpace(response), nil
+	response := string(buffer[:n])
+	return response, nil
 }

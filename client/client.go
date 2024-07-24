@@ -53,7 +53,7 @@ func (c *Client) Read() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	//TODO: fix this to send lines insted of lines as string (check ops/read.rs)
+	fmt.Println(response)
 	formattedResponse := strings.ReplaceAll(response, "&/n", "\n")
 	return formattedResponse, nil
 }
