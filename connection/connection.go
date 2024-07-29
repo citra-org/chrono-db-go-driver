@@ -52,7 +52,7 @@ func NewConnection(uri string) (*Connection, string, error) {
 }
 
 func (c *Connection) authenticate(username, password string) error {
-	command := fmt.Sprintf("%s %s auth\n", username, password)
+	command := fmt.Sprintf("auth %s %s", username, password)
 	_, err := c.conn.Write([]byte(command))
 	if err != nil {
 		return err

@@ -28,20 +28,20 @@ func (c *Client) CreateChrono(chrono string) error {
 	return nil
 }
 
-func (c *Client) CreateStream(chrono string,stream string) error {
+func (c *Client) CreateStream(chrono string, stream string) error {
 	if response, err := c.conn.Execute("cs " + stream); err != nil || response != "OK" {
 		return fmt.Errorf("create failed: %v", err)
 	}
 	return nil
 }
-func (c *Client) DeleteStream(chrono string,stream string) error {
+func (c *Client) DeleteStream(chrono string, stream string) error {
 	if response, err := c.conn.Execute("ds " + stream); err != nil || response != "OK" {
 		return fmt.Errorf("delete failed: %v", err)
 	}
 	return nil
 }
 
-func (c *Client) WriteEvent(chrono string,stream string, data map[string]string) error {
+func (c *Client) WriteEvent(chrono string, stream string, data map[string]string) error {
 	command := "w " + stream + " "
 	for k, v := range data {
 		command += k + " " + v + " "
