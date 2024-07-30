@@ -12,7 +12,7 @@ var dbClient *client.Client
 var dbName string
 
 func main() {
-	uri := "itlg://admin:D!EO$H2i!MbIuZy8@127.0.0.1:3141/test11"
+	uri := "chrono://admin:D!EO$H2i!MbIuZy8@127.0.0.1:3141/test11"
 	var err error
 
 	dbClient, dbName, err = client.Connect(uri)

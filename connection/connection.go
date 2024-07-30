@@ -13,7 +13,7 @@ type Connection struct {
 
 func NewConnection(uri string) (*Connection, string, error) {
 	parts := strings.Split(uri, "://")
-	if len(parts) != 2 || parts[0] != "itlg" {
+	if len(parts) != 2 || parts[0] != "chrono" {
 		return nil, "", fmt.Errorf("invalid URI scheme")
 	}
 
