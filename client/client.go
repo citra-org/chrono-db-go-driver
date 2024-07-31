@@ -2,58 +2,56 @@ package client
 
 import (
 	"fmt"
-	"github.com/IntelliLog/IntelliLog-GoLang-Driver/connection"
-	"strings"
+	"github.com/citra-org/chrono-db-go-driver/connection"
 )
 
 type Client struct {
 	conn *connection.Connection
 }
 
-func NewClient(uri string) (*Client, error) {
-	conn, err := connection.NewConnection(uri)
+func Connect(uri string) (*Client, string, error) {
+	conn, dbName, err := connection.NewConnection(uri)
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
-	return &Client{conn: conn}, nil
+	return &Client{conn: conn}, dbName, nil
 }
 
 func (c *Client) Close() error {
 	return c.conn.Close()
 }
 
-func (c *Client) Create() error {
-	response, err := c.conn.Execute("c")
-	if err != nil {
-		return err
-	}
-	if response != "OK" {
-		return fmt.Errorf("create failed: %s", response)
+func (c *Client) CreateChrono(chrono string) error {
+	if response, err := c.conn.Execute("cc " + "heheh"); err != nil || response != "OK" {
+		return fmt.Errorf("create failed: %v", err)
 	}
 	return nil
 }
 
-func (c *Client) Write(data map[string]string) error {
-	command := "w"
+func (c *Client) CreateStream(chrono string, stream string) error {
+	if response, err := c.conn.Execute("cs " + stream); err != nil || response != "OK" {
+		return fmt.Errorf("create failed: %v", err)
+	}
+	return nil
+}
+func (c *Client) DeleteStream(chrono string, stream string) error {
+	if response, err := c.conn.Execute("ds " + stream); err != nil || response != "OK" {
+		return fmt.Errorf("delete failed: %v", err)
+	}
+	return nil
+}
+
+func (c *Client) WriteEvent(chrono string, stream string, data map[string]string) error {
+	command := "w " + stream + " "
 	for k, v := range data {
-		command += fmt.Sprintf(" %s %s", k, v)
+		command += k + " " + v + " "
 	}
-	response, err := c.conn.Execute(command)
-	if err != nil {
-		return err
-	}
-	if response != "OK" {
-		return fmt.Errorf("write failed: %s", response)
+	if response, err := c.conn.Execute(command); err != nil || response != "OK" {
+		return fmt.Errorf("write failed: %v", err)
 	}
 	return nil
 }
 
-func (c *Client) Read() (string, error) {
-	response, err := c.conn.Execute("r")
-	if err != nil {
-		return "", err
-	}
-	//TODO: fix this to send lines insted of lines as string (check ops/read.rs)
-	formattedResponse := strings.ReplaceAll(response, "&/n", "\n")
-	return formattedResponse, nil
+func (c *Client) Read(chrono string, stream string) (string, error) {
+	return c.conn.Execute("r " + stream)
 }
