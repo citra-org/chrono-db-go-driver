@@ -12,7 +12,7 @@ var dbClient *client.Client
 var dbName string
 
 func main() {
-	uri := "chrono://admin:D!EO$H2i!MbIuZy8@127.0.0.1:3141/test11"
+	uri := "chrono://admin:j1GwJOhbiEKBHkKu@127.0.0.1:3141/dev4"
 	var err error
 
 	dbClient, dbName, err = client.Connect(uri)
@@ -30,7 +30,7 @@ func main() {
 	r.GET("/ds/:stream", handleDeleteStream)
 
 	fmt.Println("Server listening on port 3000")
-	err = r.Run(":3002")
+	err = r.Run(":3000")
 	if err != nil {
 		fmt.Println("Error starting server:", err)
 	}

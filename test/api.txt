@@ -1,4 +1,4 @@
-curl -X POST http://localhost:3000/cs/<stream>
+curl http://localhost:3000/cs/<stream>
 curl -X POST -d '{"<header>": "<body>","<header>": "<body>"}' -H "Content-Type: application/json" http://localhost:3000/w/<stream>
 curl http://localhost:3000/r/<stream>
 curl http://localhost:3000/ds/<stream>
