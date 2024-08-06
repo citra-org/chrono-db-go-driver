@@ -22,7 +22,9 @@ This function will diconnect from chrono db
 
 3. CreateStream <<**CHRONO_NAME** *string* :: **STREAM_NAME** *string*>>
 
-4. WriteEvent <<**CHRONO_NAME** *string* :: **STREAM_NAME** *string* :: **EVENTS** { **HEADER**, **BODY** *(string, string)* } >>
+4. WriteEvent 
+
+<<**CHRONO_NAME** *string* :: **STREAM_NAME** *string* :: **EVENTS** { **HEADER**, **BODY** *(string, string)* } >>
 
 5. Read <<**CHRONO_NAME** *string* :: **STREAM_NAME** *string*>>
 
