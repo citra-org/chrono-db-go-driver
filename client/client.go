@@ -36,7 +36,6 @@ func (c *Client) DeleteStream(chrono string, stream string) error {
 
 func (c *Client) WriteEvent(chrono string, stream string, event string) error {
 	command := "INSERT " + event + " INTO " + stream
-	fmt.Println(command+"this is cm")
 	if response, err := c.conn.Execute(command); err != nil || response != "OK" {
 		return fmt.Errorf("write failed: %v", err)
 	}
