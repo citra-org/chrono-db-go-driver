@@ -21,6 +21,12 @@ func (c *Client) Close() error {
 	return c.conn.Close()
 }
 
+func (c *Client) PingChrono() error {
+	if response, err := c.conn.Execute("PING"); err != nil || response != "OK" {
+		return fmt.Errorf("ping failed: %v", err)
+	}
+	return nil
+}
 func (c *Client) CreateStream(chrono string, stream string) error {
 	if response, err := c.conn.Execute("CREATE STREAM " + stream); err != nil || response != "OK" {
 		return fmt.Errorf("create failed: %v", err)
