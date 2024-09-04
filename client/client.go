@@ -40,8 +40,8 @@ func (c *Client) DeleteStream(chrono string, stream string) error {
 	return nil
 }
 
-func (c *Client) WriteEvent(chrono string, stream string, event string) error {
-	command := "INSERT " + event + " INTO " + stream
+func (c *Client) WriteEvent(stream string, event string) error {
+	command := "INSERT INTO " + stream + " VALUES " + event
 	if response, err := c.conn.Execute(command); err != nil || response != "OK" {
 		return fmt.Errorf("write failed: %v", err)
 	}
